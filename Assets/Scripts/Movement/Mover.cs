@@ -1,3 +1,5 @@
+using RPG.Combat;
+using RPG.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,14 +10,13 @@ namespace RPG.Movement
 {
     public class Mover : MonoBehaviour
     {
-        private Transform target;
-        private float movementVelocity;
-        private Ray lastRay;
         private Animator animator;
+        private NavMeshAgent navMeshAgent;
 
         void Start()
         {
             animator = GetComponent<Animator>();
+            navMeshAgent = GetComponent<NavMeshAgent>();
         }
 
         void Update()
@@ -25,15 +26,28 @@ namespace RPG.Movement
 
         private void UpdateAnimatior()
         {
-            Vector3 velocity = GetComponent<NavMeshAgent>().velocity;
+            Vector3 velocity = navMeshAgent.velocity;
             Vector3 localVelocity = transform.InverseTransformDirection(velocity);
             float speed = localVelocity.z;
             animator.SetFloat("forwardSpeed", speed);
         }
 
+        public void StartMoveAction(Vector3 destination)
+        {
+            GetComponent<ActionScheduler>().StartAction(this);
+            GetComponent<Fighter>().Cancel();
+            MoveTo(destination);
+        }
+
         public void MoveTo(Vector3 destination)
         {
-            GetComponent<NavMeshAgent>().destination = destination;
+            navMeshAgent.destination = destination;
+            navMeshAgent.isStopped = false;
+        }
+        
+        public void Stop()
+        {
+            navMeshAgent.isStopped = true;
         }
     }
 }
