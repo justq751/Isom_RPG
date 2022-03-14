@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1492821275866281935}
+  - component: {fileID: 4214726578033767120}
   - component: {fileID: 1492821275866281933}
   - component: {fileID: 1418887520}
   - component: {fileID: 1418887521}
-  - component: {fileID: 4214726578033767120}
+  - component: {fileID: 4602551521146316341}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -35,6 +36,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &4214726578033767120
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492821275866281971}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: d288a0e4a2d923b46898986e979da643, type: 3}
+  m_Controller: {fileID: 9100000, guid: cbe14b5b0b2a39e448faa764d391c52f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!23 &1492821275866281933
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -94,8 +114,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
+  m_Height: 1.7
+  m_BaseOffset: -0.12
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &1418887521
@@ -110,25 +130,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b29864abcf025ce4897433b800cb3565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &4214726578033767120
-Animator:
-  serializedVersion: 3
+--- !u!114 &4602551521146316341
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1492821275866281971}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: d288a0e4a2d923b46898986e979da643, type: 3}
-  m_Controller: {fileID: 9100000, guid: cbe14b5b0b2a39e448faa764d391c52f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3972a898c6fce1d4ca3ece8e1fb03470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1492821276103613052
 PrefabInstance:
   m_ObjectHideFlags: 0
