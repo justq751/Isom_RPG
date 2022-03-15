@@ -6,11 +6,6 @@ namespace RPG.Control
 {
     public class PlayerController : MonoBehaviour
     {
-        void Start()
-        {
-
-        }
-
         void Update()
         {
             if (InteractWithCombat()) return;
@@ -24,11 +19,14 @@ namespace RPG.Control
             foreach(RaycastHit hit in hits)
             {
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
-                if (!GetComponent<Fighter>().CanAttack(target)) continue;
+
+                if (target == null) continue;
+                
+                if (!GetComponent<Fighter>().CanAttack(target.gameObject)) continue;
                 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    GetComponent<Fighter>().Attack(target);
+                    GetComponent<Fighter>().Attack(target.gameObject);
                 }
                 return true;
             }
@@ -51,6 +49,7 @@ namespace RPG.Control
 
         private static Ray GetMouseRay()
         {
+            //hack?
             return Camera.main.ScreenPointToRay(new Vector3(
                                 Input.mousePosition.x,
                                 Input.mousePosition.y,
