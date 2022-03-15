@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
+using RPG.Core;
 
 namespace RPG.Combat
 {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using RPG.Combat;
+using RPG.Core;
 
 namespace RPG.Control
 {
@@ -10,15 +11,19 @@ namespace RPG.Control
 
         Fighter fighter;
         GameObject player;
+        Health health;
 
         private void Start()
         {
             fighter = GetComponent<Fighter>();
+            health = GetComponent<Health>();
             player = GameObject.FindWithTag("Player");
         }
 
         private void Update()
         {
+            if (health.IsDead()) return;
+
             if (InAttackRange() && fighter.CanAttack(player))
             {
                 fighter.Attack(player);
@@ -34,6 +39,12 @@ namespace RPG.Control
             if (player == null) return false;
 
             return Vector3.Distance(player.transform.position, transform.position) < chaseDistance;
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, chaseDistance);
         }
     }
 }
