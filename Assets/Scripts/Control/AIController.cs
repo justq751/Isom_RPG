@@ -1,22 +1,31 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using RPG.Combat;
 using RPG.Core;
+using RPG.Movement;
 
 namespace RPG.Control
 {
     public class AIController : MonoBehaviour
     {
         [SerializeField] float chaseDistance = 5f;
+        [SerializeField] float suspitionTime = 5f;
 
         Fighter fighter;
+        Mover mover;
         GameObject player;
         Health health;
+
+        Vector3 guardPosition;
+        float timeSinceLastSawPlayer = Mathf.Infinity;
 
         private void Start()
         {
             fighter = GetComponent<Fighter>();
             health = GetComponent<Health>();
+            mover = GetComponent<Mover>();
+
+            guardPosition = transform.position;
+
             player = GameObject.FindWithTag("Player");
         }
 
@@ -26,12 +35,33 @@ namespace RPG.Control
 
             if (InAttackRange() && fighter.CanAttack(player))
             {
-                fighter.Attack(player);
+                timeSinceLastSawPlayer = 0;
+                AttackBehaviour();
+            }
+            else if (timeSinceLastSawPlayer < suspitionTime)
+            {
+                SuspitionBehaviour();
             }
             else
             {
-                fighter.Cancel();
+                GuardBehaviour();
             }
+            timeSinceLastSawPlayer += Time.deltaTime;
+        }
+
+        private void AttackBehaviour()
+        {
+            fighter.Attack(player);
+        }
+
+        private void SuspitionBehaviour()
+        {
+            GetComponent<ActionScheduler>().CanceCurrentAction();
+        }
+
+        private void GuardBehaviour()
+        {
+            mover.StartMoveAction(guardPosition);
         }
 
         private bool InAttackRange()
